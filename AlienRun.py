@@ -81,17 +81,22 @@ def player_animation():
 pygame.init()  # Initiates the pygame module
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))  # Creates a surface
-pygame.display.set_caption("Alien Run 💨 By Grace Hephzibah M from SRM IST, RMP")
+pygame.display.set_caption("Alien Run 💨")
 
 clock = pygame.time.Clock()
 
-# Sounds
-jump_sound = pygame.mixer.Sound(os.path.join('Assets', 'audio', 'jump.mp3'))
-jump_sound.set_volume(0.4)  # Value ranges bw 0 to 1
+try:
+    # Sounds
+    x = 5/0
+    jump_sound = pygame.mixer.Sound(os.path.join('Assets', 'audio', 'jump.mp3'))
+    jump_sound.set_volume(0.4)  # Value ranges bw 0 to 1
 
-bg_sound = pygame.mixer.Sound(os.path.join('Assets', 'audio', 'music.wav'))
-bg_sound.set_volume(0.7)
-bg_sound.play(loops=-1)
+    bg_sound = pygame.mixer.Sound(os.path.join('Assets', 'audio', 'music.wav'))
+    bg_sound.set_volume(0.7)
+    bg_sound.play(loops=-1)
+except:
+    jump_sound = None
+    bg_sound = None
 
 # Font
 test_font = pygame.font.Font(os.path.join('Assets','font', 'Pixeltype.ttf'), 40)
@@ -177,13 +182,19 @@ while True:  # Here the game runs continuously
                 if player_rect.collidepoint(event.pos) and current_jump < JUMP:
                     player_gravity = P_VEL
                     current_jump += 1
-                    jump_sound.play()
+                    try:
+                        jump_sound.play()
+                    except:
+                        pass
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE and current_jump < JUMP:
                     player_gravity = P_VEL
                     current_jump += 1
-                    jump_sound.play()
+                    try:
+                        jump_sound.play()
+                    except:
+                        pass
 
         else:  # Intro Page
             if event.type == pygame.MOUSEBUTTONDOWN:
